@@ -467,6 +467,8 @@ class Generator(nn.Module):
     def get_latent(self, input):
         return self.style(input)
 
+    # CL: truncation should be set to 0.5 as in the styleGAN paper
+    # However it is not used here
     def forward(
             self,
             styles,

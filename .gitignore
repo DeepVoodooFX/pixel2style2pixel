@@ -1,0 +1,5 @@
+*.pyc
+inputs/*
+outputs/*
+pretrained_models/*
+*landmarks.*

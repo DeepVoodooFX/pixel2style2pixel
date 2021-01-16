@@ -89,8 +89,10 @@ def align_face(filepath, predictor):
 	# read image
 	img = PIL.Image.open(filepath)
 
-	output_size = 256
-	transform_size = 256
+	# CL: psp use 256 as default, but 512 also works
+	output_size = 512
+	transform_size = 512
+
 	enable_padding = True
 
 	# Shrink.
