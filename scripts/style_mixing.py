@@ -63,7 +63,7 @@ def run():
 		if global_i >= opts.n_images:
 			break
 		with torch.no_grad():
-			input_batch = input_batch.cuda()
+			input_batch = input_batch[0].cuda()
 			for image_idx, input_image in enumerate(input_batch):
 				# generate random vectors to inject into input image
 				vecs_to_inject = np.random.randn(opts.n_outputs_to_generate, 512).astype('float32')

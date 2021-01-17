@@ -6,10 +6,10 @@ import torchvision.transforms as transforms
 
 def run_alignment(image_path):
   import dlib
-  from scripts.align_all_parallel import align_face
+  from scripts.align_all_parallel import align_face, align_face_dfl
   predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
   print(image_path)
-  aligned_image = align_face(filepath=image_path, predictor=predictor) 
+  aligned_image = align_face_dfl(filepath=image_path, predictor=predictor) 
   print("Aligned image has shape: {}".format(aligned_image.size))
   return aligned_image 
   
@@ -28,11 +28,11 @@ class InferenceDataset(Dataset):
 		from_path = self.paths[index]
 
 		# #CL: For FFHQ images you only need to read as they are 
-		# from_im = Image.open(from_path)
-		# from_im = from_im.convert('RGB') if self.opts.label_nc == 0 else from_im.convert('L')
+		from_im = Image.open(from_path)
+		from_im = from_im.convert('RGB') if self.opts.label_nc == 0 else from_im.convert('L')
 
 		# CL: For wf images extracted from DFL, you need to rerun alignment
-		from_im = run_alignment(from_path)
+		# from_im = run_alignment(from_path)
 
 		if self.transform:
 			out_im = self.transform(from_im)
