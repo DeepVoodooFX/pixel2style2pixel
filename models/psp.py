@@ -64,7 +64,7 @@ class pSp(nn.Module):
 				self.__load_latent_avg(ckpt, repeat=18)
 
 	def forward(self, x, resize=True, latent_mask=None, input_code=False, randomize_noise=True,
-	            inject_latent=None, return_latents=False, alpha=None):
+	            inject_latent=None, return_latents=False, alpha=None, input_is_encode=False):
 		if input_code:
 			codes = x
 		else:
@@ -87,11 +87,12 @@ class pSp(nn.Module):
 				else:
 					codes[:, i] = 0
 
-		input_is_latent = not input_code
+		input_is_latent = (not input_code) or (input_is_encode)
 		images, result_latent = self.decoder([codes],
 		                                     input_is_latent=input_is_latent,
 		                                     randomize_noise=randomize_noise,
 		                                     return_latents=return_latents)
+		print(images.shape)
 
 		if resize:
 			images = self.face_pool(images)
