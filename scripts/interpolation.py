@@ -14,18 +14,27 @@ sys.path.append("..")
 from models.psp import pSp
 from utils.common import tensor2im, log_input_image
 
-src_image = '/home/ubuntu/data/psp/frame/inversion_images/benedict_cumberbatch.jpg'
-dst_image = '/home/ubuntu/data/psp/frame/inversion_images/benedict_cumberbatch_flip.jpg'
-exp_dir = '/home/ubuntu/data/psp/output/inversion_images_style_mixed'
+# src_image = '/home/ubuntu/data/psp/frame/inversion_images/benedict_cumberbatch.jpg'
+# dst_image = '/home/ubuntu/data/psp/frame/inversion_images/benedict_cumberbatch_flip.jpg'
+# exp_dir = '/home/ubuntu/data/psp/output/inversion_images_style_mixed'
 
-# src_image = '/home/ubuntu/data/psp/frame/Trump_512_wf/00462.jpg'
-# dst_image = '/home/ubuntu/data/psp/frame/Trump_512_wf/01647.jpg'
-# exp_dir = '/home/ubuntu/data/psp/output/Trump_512_wf_style_mixed'
+# src_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/donal_trump.jpg'
+# dst_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/donal_trump_flip.jpg'
+# exp_dir = '/home/ubuntu/data/psp/output/Trump_cl_aligned_inter'
+
+# src_image = '/home/ubuntu/data/psp/frame/CelebA_HQ/00462.jpg'
+# dst_image = '/home/ubuntu/data/psp/frame/CelebA_HQ/00462_flip.jpg'
+# exp_dir = '/home/ubuntu/data/psp/output/CelebA_HQ_inter'
+
+src_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/Trump_GoogleScrape2_099_0.png'
+dst_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/Trump_GoogleScrape2_099_0_flip.png'
+exp_dir = '/home/ubuntu/data/psp/output/Trump_cl_aligned_inter'
+
 
 test_batch_size = 1
 test_workers = 1
 checkpoint_path = 'pretrained_models/psp_ffhq_encode.pt'
-num_step = 10
+num_step = 100
 
 transform = transforms.Compose([transforms.Resize((256, 256)),
                                 transforms.ToTensor(),
@@ -55,11 +64,15 @@ net.eval()
 net.cuda()
 
 a, v_src = net(src_im.unsqueeze(0).to("cuda").float(),
-            return_latents=True)
+            return_latents=True,
+            resize = False,
+            randomize_noise = False)
 
 
 b, v_dst = net(dst_im.unsqueeze(0).to("cuda").float(),
-            return_latents=True)
+            return_latents=True,
+            resize = False,
+            randomize_noise = False)
 
 # print(a.shape)
 # print(b.shape)
@@ -89,11 +102,12 @@ for s in range(num_step + 1):
                      resize = False,
                      input_code=True,
                      return_latents=True,
-                     input_is_encode=True)
+                     input_is_encode=True,
+                     randomize_noise=False)
     print('----------------------------')
     print(output.shape)
     Image.fromarray(np.array(tensor2im(output[0]))).save(
-        os.path.join(opts.exp_dir, str(s) + '_.png'))
+        os.path.join(opts.exp_dir, str(s).zfill(5) + '.png'))
 
 # Image.fromarray(np.array(tensor2im(rec_src[0]))).save('rec_src.png')
 # Image.fromarray(np.array(tensor2im(rec_dst[0]))).save('rec_dst.png')
