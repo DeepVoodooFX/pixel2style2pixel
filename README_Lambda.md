@@ -35,9 +35,18 @@ Run
 
 ```
 python scripts/inference_recon.py \
---exp_dir=/home/ubuntu/data/psp/output/Trump_aligned_wf \
---checkpoint_path=pretrained_models/psp_ffhq_encode.pt \
---data_path=/home/ubuntu/data/psp/frame/Trump_aligned_wf \
+--exp_dir=/home/ubuntu/data/psp/output/Trump_aligned_bf_recon_finetuned2500 \
+--checkpoint_path=/home/ubuntu/data/psp/model/trump_encoder/checkpoints/best_model.pt \
+--data_path=/home/ubuntu/data/psp/frame/Trump_aligned_bf \
+--test_batch_size=8 \
+--test_workers=2 \
+--couple_outputs
+
+
+python scripts/inference_recon.py \
+--exp_dir=/home/ubuntu/data/psp/output/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq_recon_finetuned22500 \
+--checkpoint_path=/home/ubuntu/data/psp/model/trump_encoder/checkpoints/best_model.pt \
+--data_path=/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq \
 --test_batch_size=8 \
 --test_workers=2 \
 --couple_outputs
@@ -61,7 +70,6 @@ python scripts/inference_recon_dfl.py \
 --test_batch_size=1 --test_workers=1 --couple_outputs
 
 
-
 python scripts/style_mixing.py \
 --exp_dir=/home/ubuntu/data/psp/output/inversion_images_style_mixed \
 --checkpoint_path=pretrained_models/psp_ffhq_encode.pt \
@@ -70,6 +78,23 @@ python scripts/style_mixing.py \
 --test_workers=4 \
 --n_outputs_to_generate=5 \
 --latent_mask=8,9,10,11,12,13,14,15,16,17
+
+
+python scripts/train.py \
+--dataset_type=ffhq_encode \
+--exp_dir=/home/ubuntu/data/psp/model/trump_encoder \
+--workers=8 \
+--batch_size=8 \
+--test_batch_size=8 \
+--test_workers=8 \
+--val_interval=2500 \
+--save_interval=2500 \
+--encoder_type=GradualStyleEncoder \
+--start_from_latent_avg \
+--lpips_lambda=0.8 \
+--l2_lambda=1 \
+--id_lambda=0.1 \
+--checkpoint_path=/home/ubuntu/pixel2style2pixel/pretrained_models/best_model_2500.pt
 
 ```
 

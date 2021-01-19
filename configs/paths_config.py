@@ -1,12 +1,18 @@
+# dataset_paths = {
+# 	'celeba_train': '',
+# 	'celeba_test': '',
+# 	'celeba_train_sketch': '',
+# 	'celeba_test_sketch': '',
+# 	'celeba_train_segmentation': '',
+# 	'celeba_test_segmentation': '',
+# 	'ffhq': '',
+# }
+
 dataset_paths = {
-	'celeba_train': '',
-	'celeba_test': '',
-	'celeba_train_sketch': '',
-	'celeba_test_sketch': '',
-	'celeba_train_segmentation': '',
-	'celeba_test_segmentation': '',
-	'ffhq': '',
+	'trump_train': '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_dfl2ffhq_train',
+	'trump_test': '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_dfl2ffhq_test',
 }
+
 
 model_paths = {
 	'stylegan_ffhq': 'pretrained_models/stylegan2-ffhq-config-f.pt',

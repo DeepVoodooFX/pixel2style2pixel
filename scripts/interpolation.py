@@ -26,14 +26,18 @@ from utils.common import tensor2im, log_input_image
 # dst_image = '/home/ubuntu/data/psp/frame/CelebA_HQ/00462_flip.jpg'
 # exp_dir = '/home/ubuntu/data/psp/output/CelebA_HQ_inter'
 
-src_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/Trump_GoogleScrape2_099_0.png'
-dst_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/Trump_GoogleScrape2_099_0_flip.png'
-exp_dir = '/home/ubuntu/data/psp/output/Trump_cl_aligned_inter'
+# src_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/Trump_GoogleScrape2_099_0.png'
+# dst_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/Trump_GoogleScrape2_099_0_flip.png'
+# exp_dir = '/home/ubuntu/data/psp/output/Trump_cl_aligned_inter'
+
+src_image = '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq/00278.png'
+dst_image = '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq/Trump_GoogleScrape2_159_0.png'
+exp_dir = '/home/ubuntu/data/psp/output/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq_inter_22500/3'
 
 
 test_batch_size = 1
 test_workers = 1
-checkpoint_path = 'pretrained_models/psp_ffhq_encode.pt'
+checkpoint_path = '/home/ubuntu/data/psp/model/trump_encoder/checkpoints/best_model.pt'
 num_step = 100
 
 transform = transforms.Compose([transforms.Resize((256, 256)),
