@@ -26,13 +26,13 @@ from utils.common import tensor2im, log_input_image
 # dst_image = '/home/ubuntu/data/psp/frame/CelebA_HQ/00462_flip.jpg'
 # exp_dir = '/home/ubuntu/data/psp/output/CelebA_HQ_inter'
 
-# src_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/Trump_GoogleScrape2_099_0.png'
-# dst_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/Trump_GoogleScrape2_099_0_flip.png'
-# exp_dir = '/home/ubuntu/data/psp/output/Trump_cl_aligned_inter'
+src_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/result.png'
+dst_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/Trump_GoogleScrape2_099_0.png'
+exp_dir = '/home/ubuntu/data/psp/output/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq_inter_hq_trump/2'
 
-src_image = '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq/00278.png'
-dst_image = '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq/Trump_GoogleScrape2_159_0.png'
-exp_dir = '/home/ubuntu/data/psp/output/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq_inter_22500/3'
+# src_image = '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq/00278.png'
+# dst_image = '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq/Trump_GoogleScrape2_159_0.png'
+# exp_dir = '/home/ubuntu/data/psp/output/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq_inter_hq_trump/3'
 
 
 test_batch_size = 1

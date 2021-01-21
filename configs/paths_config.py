@@ -9,8 +9,8 @@
 # }
 
 dataset_paths = {
-	'trump_train': '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_dfl2ffhq_train',
-	'trump_test': '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_dfl2ffhq_test',
+	'trump_train': '/media/ubuntu/Data1/data/Trump/trump-high-res-photos_aligned_bf_1024_dfl2ffhq_train',
+	'trump_test': '/media/ubuntu/Data1/data/Trump/trump-high-res-photos_aligned_bf_1024_dfl2ffhq_test',
 }
 
 

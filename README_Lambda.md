@@ -44,7 +44,7 @@ python scripts/inference_recon.py \
 
 
 python scripts/inference_recon.py \
---exp_dir=/home/ubuntu/data/psp/output/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq_recon_finetuned22500 \
+--exp_dir=/home/ubuntu/data/psp/output/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq_recon_finetuned_hqtrump \
 --checkpoint_path=/home/ubuntu/data/psp/model/trump_encoder/checkpoints/best_model.pt \
 --data_path=/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq \
 --test_batch_size=8 \
@@ -87,15 +87,14 @@ python scripts/train.py \
 --batch_size=8 \
 --test_batch_size=8 \
 --test_workers=8 \
---val_interval=2500 \
---save_interval=2500 \
+--val_interval=500 \
+--save_interval=500 \
 --encoder_type=GradualStyleEncoder \
 --start_from_latent_avg \
 --lpips_lambda=0.8 \
 --l2_lambda=1 \
 --id_lambda=0.1 \
---checkpoint_path=/home/ubuntu/pixel2style2pixel/pretrained_models/best_model_2500.pt
-
+--checkpoint_path=/home/ubuntu/pixel2style2pixel/pretrained_models/best_model_22500.pt
 ```
 
 
@@ -110,27 +109,13 @@ videoed extract-video \
 --output-dir=/home/ubuntu/data/psp/frame/Trump \
 --output-ext=png --fps=0
 
-
-
 python main.py extract --detector s3fd \
---input-dir /home/ubuntu/data/psp/frame/Trump \
---output-dir /home/ubuntu/data/psp/frame/Trump_aligned_bbf \
---face-type big_big_face \
+--input-dir /media/ubuntu/Data1/data/Trump/trump-high-res-photos \
+--output-dir /media/ubuntu/Data1/data/Trump/trump-high-res-photos_aligned_bf_1024 \
+--face-type big_face \
 --jpeg-quality 100 \
---image-size 512 \
+--image-size 1024 \
 --max-faces-from-image 0
-
-
-python main.py extract --detector s3fd \
---input-dir /home/ubuntu/data/psp/frame/Trump \
---output-dir /home/ubuntu/data/psp/frame/Trump_aligned_h \
---face-type head \
---jpeg-quality 100 \
---image-size 512 \
---max-faces-from-image 0
-
-
-
 
 
 ```
