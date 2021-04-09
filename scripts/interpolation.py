@@ -26,9 +26,9 @@ from utils.common import tensor2im, log_input_image
 # dst_image = '/home/ubuntu/data/psp/frame/CelebA_HQ/00462_flip.jpg'
 # exp_dir = '/home/ubuntu/data/psp/output/CelebA_HQ_inter'
 
-src_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/result.png'
-dst_image = '/home/ubuntu/data/psp/frame/Trump_cl_aligned/Trump_GoogleScrape2_099_0.png'
-exp_dir = '/home/ubuntu/data/psp/output/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq_inter_hq_trump/2'
+src_image = '/media/ubuntu/Data1/dfl/data/interpolation/00004.png'
+dst_image = '/media/ubuntu/Data1/dfl/data/interpolation/00005.png'
+exp_dir = '/media/ubuntu/Data1/dfl/data/interpolation_results'
 
 # src_image = '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq/00278.png'
 # dst_image = '/media/ubuntu/Data1/data/Trump/WholeFace/_CustomBatches/TomsSelect+AllGetty+AllGoogle_mini_dfl2ffhq/Trump_GoogleScrape2_159_0.png'
@@ -37,7 +37,7 @@ exp_dir = '/home/ubuntu/data/psp/output/TomsSelect+AllGetty+AllGoogle_mini_dfl2f
 
 test_batch_size = 1
 test_workers = 1
-checkpoint_path = '/home/ubuntu/data/psp/model/trump_encoder/checkpoints/best_model.pt'
+checkpoint_path = '/media/ubuntu/Data1/dfl/model/psp/best_model_hd_trump.pt'
 num_step = 100
 
 transform = transforms.Compose([transforms.Resize((256, 256)),
@@ -78,23 +78,6 @@ b, v_dst = net(dst_im.unsqueeze(0).to("cuda").float(),
             resize = False,
             randomize_noise = False)
 
-# print(a.shape)
-# print(b.shape)
-
-# input_is_encode is used to stop transforming input_code by style layer
-# That transformation is only needed for random input vectors
-# rec_src, rec_v_src = net(v_src.to("cuda"),
-#                  input_code=True,
-#                  return_latents=True,
-#                  input_is_encode=True) 
-
-# rec_dst, rec_v_dst = net(v_dst.to("cuda"),
-#                  input_code=True,
-#                  return_latents=True,
-#                  input_is_encode=True) 
-
-
-
 if not os.path.exists(opts.exp_dir):
     os.makedirs(opts.exp_dir)
 
@@ -102,19 +85,24 @@ if not os.path.exists(opts.exp_dir):
 step = (v_dst - v_src) / num_step
 for s in range(num_step + 1):
     v = v_src + step * s
+
+    # Save latent vectors
+    np.save(os.path.join(opts.exp_dir, str(s).zfill(5) + '.npy'),
+            v.cpu().detach().numpy())
+    
+    # # Test saved latent vectors
+    # v = torch.from_numpy(
+    #     np.load(os.path.join(opts.exp_dir, str(s).zfill(5) + '.npy'))).to(device='cuda')
+
+    # Decode latent vectors using stylegan2
     output, _ = net(v.to("cuda"),
                      resize = False,
                      input_code=True,
                      return_latents=True,
                      input_is_encode=True,
                      randomize_noise=False)
-    print('----------------------------')
-    print(output.shape)
+    # Save decoded image
     Image.fromarray(np.array(tensor2im(output[0]))).save(
         os.path.join(opts.exp_dir, str(s).zfill(5) + '.png'))
 
-# Image.fromarray(np.array(tensor2im(rec_src[0]))).save('rec_src.png')
-# Image.fromarray(np.array(tensor2im(rec_dst[0]))).save('rec_dst.png')
-
-# print(v_src - rec_v_src)
-# print(v_dst - rec_v_dst)
+    print('Step {}/{}'.format(s + 1, num_step))
